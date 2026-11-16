@@ -1,0 +1,23 @@
+name: MerchantRole
+version: '${version}'
+main: com.bap80.merchantrole.MerchantRolePlugin
+api-version: '26.3'
+description: Task-driven rank progression with QuickShop-Hikari, WorldGuard and WorldEdit.
+author: seraphine
+depend: [WorldGuard, WorldEdit, QuickShop-Hikari]
+softdepend: [LuckPerms, GriefPrevention, Vault, VaultUnlocked]
+
+commands:
+  roles:
+    description: View tasks, upgrade or rank up your MerchantRole.
+    usage: /roles <progress|upgrade|rankup|reload|start|help>
+    aliases: [merchantrole, merchantroles, role]
+    permission: merchantrole.use
+
+permissions:
+  merchantrole.use:
+    description: Allows use of the /roles commands.
+    default: true
+  merchantrole.admin:
+    description: Allows /roles reload.
+    default: op

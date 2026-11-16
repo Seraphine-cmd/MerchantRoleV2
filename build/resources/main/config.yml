@@ -1,0 +1,119 @@
+# ============================================================
+#  MerchantRole
+# ============================================================
+#  Rank chain:
+#    Peasants -> Miner I -> Miner II -> Fighter I -> Fighter II
+#             -> Explorer I -> Explorer II -> Farmer I -> Farmer II
+#
+#  The task list shown by /roles progress belongs to the NEXT rank.
+#  Example: a Peasant sees Miner I tasks; a Miner I sees Miner II tasks.
+# ============================================================
+
+settings:
+  # How often (in ticks) the plugin scans inventories for "obtain/collect"
+  # tasks such as diamonds, raw ores, Heart of the Sea and armour trims.
+  # 20 ticks = 1 second. Keep this at 100 or higher on large servers.
+  inventory-scan-interval-ticks: 100
+
+  # How often (in seconds) progress is written to players.yml.
+  save-interval-seconds: 30
+
+  # Optional WorldGuard region where /roles upgrade and /roles rankup may be
+  # used. Leave blank to allow rank changes anywhere.
+  rankup-region: ""
+
+  # Sync the player's current rank group on every join. This removes other
+  # MerchantRole rank groups and re-adds the current one. Only applies when
+  # LuckPerms is installed and luckperms.enabled is true.
+  sync-groups-on-join: true
+
+  # Chat prefix used by plugin messages.
+  prefix: "&6[MerchantRole] &r"
+
+economy:
+  # Charged by /roles upgrade. The first upgrade (Peasants -> Miner I) is free
+  # when first-upgrade-free is true.
+  upgrade-cost: 5000
+  first-upgrade-free: true
+
+  # /roles rankup cost = rankup-base-cost + (rankup-increase-per-rankup * completed rankups)
+  # First rankup:  $10,000
+  # Second rankup: $15,000
+  # Third rankup:  $20,000
+  rankup-base-cost: 10000
+  rankup-increase-per-rankup: 5000
+
+luckperms:
+  enabled: true
+  # true  -> "lp user <player> parent set <group>" (replaces all parent groups)
+  # false -> remove the old MerchantRole group, then add the new one
+  use-parent-set: false
+  groups:
+    peasants: peasants
+    miner-i: miner_i
+    miner-ii: miner_ii
+    fighter-i: fighter_i
+    fighter-ii: fighter_ii
+    explorer-i: explorer_i
+    explorer-ii: explorer_ii
+    farmer-i: farmer_i
+    farmer-ii: farmer_ii
+
+# Rewards are granted when the target rank is reached.
+# money      -> deposited through QuickShop-Hikari's economy provider / Vault
+# claim-blocks -> granted through GriefPrevention when installed
+# commands   -> run from console; supports %player%, %uuid% and %rank%
+rewards:
+  fighter-i:
+    money: 10000
+    claim-blocks: 0
+    commands: []
+  explorer-i:
+    money: 15000
+    claim-blocks: 0
+    commands: []
+  farmer-i:
+    money: 0
+    claim-blocks: 200
+    commands: []
+
+# Task goals. Change these without editing the plugin code, then run
+# /roles reload.
+requirements:
+  miner-i:
+    smelt-raw-iron: 32
+    mine-diamond-ore: 32
+    obtain-diamonds: 64
+    raw-ore-stack: 64
+  miner-ii:
+    diamond-tools: 4
+    high-tier-tools: 4
+  fighter-i:
+    zombies: 10
+    baby-zombies: 5
+    skeletons: 15
+  fighter-ii:
+    enchanted-sword-kills: 200
+  explorer-i:
+    heart-of-the-sea: 2
+    sniffer-egg: 1
+  explorer-ii:
+    ominous-vaults: 5
+    armor-trims: 3
+    pottery-sherds: 8
+  farmer-i:
+    primary-crops: 640
+    breed-animals: 20
+    shear-sheep: 32
+    plant-saplings: 32
+    grow-saplings: 32
+    bone-meal: 16
+    milk-honey: 8
+  farmer-ii:
+    pumpkins-melons: 320
+    nether-wart: 128
+    hatch-sniffer-egg: 1
+    torchflower-seeds: 16
+    breed-tame-mounts: 5
+    sugar-cane-cactus: 512
+    cook-food: 320
